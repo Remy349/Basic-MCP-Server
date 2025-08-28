@@ -29,6 +29,68 @@ server.registerTool(
   },
 );
 
+// ===> Math MCP <===
+server.registerTool(
+  "math/calc",
+  {
+    title: "Math Calculation",
+    description: "Performs basic arithmetic operations.",
+    inputSchema: {
+      operation: z
+        .enum(["add", "subtract", "multiply", "divide"])
+        .describe("Arithmetic operation (add, subtract, multiply, divide)"),
+      a: z.number().describe("First number"),
+      b: z.number().describe("Second number"),
+    },
+  },
+  async ({ operation, a, b }) => {
+    let result: number;
+
+    switch (operation) {
+      case "add":
+        result = a + b;
+        break;
+      case "subtract":
+        result = a - b;
+        break;
+      case "multiply":
+        result = a * b;
+        break;
+      case "divide":
+        if (b === 0) {
+          return {
+            content: [
+              {
+                type: "text",
+                text: "Error: Division by zero is not allowed.",
+              },
+            ],
+          };
+        }
+        result = a / b;
+        break;
+      default:
+        return {
+          content: [
+            {
+              type: "text",
+              text: "Error: Unknown operation.",
+            },
+          ],
+        };
+    }
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Result: ${result}`,
+        },
+      ],
+    };
+  },
+);
+
 // ===> Clock MCP <===
 server.registerTool(
   "clock/now",
