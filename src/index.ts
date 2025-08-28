@@ -1,10 +1,33 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { z } from "zod";
 
 const server = new McpServer({
   name: "Basic MCP Server",
   version: "1.0.0",
 });
+
+// ===> Echo MCP <===
+server.registerTool(
+  "echo",
+  {
+    title: "Echo",
+    description: "Repeat the input text exactly as provided.",
+    inputSchema: {
+      text: z.string().min(1).max(100).describe("Text to echo back"),
+    },
+  },
+  async ({ text }) => {
+    return {
+      content: [
+        {
+          type: "text",
+          text: text,
+        },
+      ],
+    };
+  },
+);
 
 // ===> Clock MCP <===
 server.registerTool(
