@@ -1,3 +1,1 @@
 # Basic MCP Server
-
-Work in progress...
