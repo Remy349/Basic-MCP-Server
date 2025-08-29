@@ -7,7 +7,6 @@ const server = new McpServer({
   version: "1.0.0",
 });
 
-// ===> Echo MCP <===
 server.registerTool(
   "echo",
   {
@@ -29,7 +28,6 @@ server.registerTool(
   },
 );
 
-// ===> Math MCP <===
 server.registerTool(
   "math/calc",
   {
@@ -91,7 +89,6 @@ server.registerTool(
   },
 );
 
-// ===> Clock MCP <===
 server.registerTool(
   "clock/now",
   {
